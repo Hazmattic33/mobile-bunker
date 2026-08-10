@@ -362,8 +362,9 @@ var DEFAULTS = {
     secondary:'More Than a Golf Simulator. An Experience.',
     blurb:'Mobile golf simulator and event entertainment serving New Hampshire and Vermont.'
   },
+  formEndpoint:'https://formspree.io/f/mljrbrak',
   contact:{
-    phone:'(603) 555-0134',
+    phone:'(603) 558-8380',
     email:'hello@themobilebunker.com',
     area:'Serving New Hampshire & Vermont',
     hours:'Replies within 24 hours, 7 days a week',
@@ -1053,7 +1054,7 @@ function wireForm(){
 
     /* Send to the business email. Set a form endpoint in Admin > Settings for real delivery. */
     if(S.formEndpoint){
-      fetch(S.formEndpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(lead)}).catch(function(){});
+      fetch(S.formEndpoint,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(lead)}).catch(function(){});
     }
 
     el('formhost').innerHTML='<div class="thanks"><div class="tick">&#10003;</div>'
