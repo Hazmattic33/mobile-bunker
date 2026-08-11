@@ -365,8 +365,8 @@ var DEFAULTS = {
   formEndpoint:'https://formspree.io/f/mljrbrak',
   contact:{
     phone:'(603) 558-8380',
-    email:'hello@themobilebunker.com',
-    area:'Serving New Hampshire & Vermont',
+    email:'info@themobilebunker.com',
+    area:'Based in Claremont, NH &mdash; serving New Hampshire &amp; Vermont',
     hours:'Replies within 24 hours, 7 days a week',
     facebook:'https://facebook.com/',
     instagram:'https://instagram.com/'
@@ -462,7 +462,7 @@ var DEFAULTS = {
   ],
   addons:['Additional event hours|$150 / hr','Closest-to-the-pin competition|$100','Long-drive competition|$100','Trophy or prize package|$75 - $200','Second attendant|$100 - $150','Travel beyond the included area|See travel table','Public pay-to-play event management|Custom'],
   prizeNote:'Prizes do not have to be complicated. A sleeve of golf balls, a new club, or Mobile Bunker merchandise all work well, and sponsors are often happy to cover them.',
-  travel:{ title:'Travel', intro:'Travel is based on drive time one way from our home base, not straight line distance.', rows:[{h:'Up to 1 hour',p:'Included'},{h:'1 to 2 hours',p:'$75 - $150'},{h:'2 to 3 hours',p:'$150 - $275'},{h:'Over 3 hours or overnight',p:'Custom quote'}], note:'The included radius will be confirmed once the service area is finalized.' },
+  travel:{ title:'Travel', intro:'Travel is based on drive time one way from our home base in Claremont, New Hampshire, not straight line distance.', rows:[{h:'Up to 1 hour',p:'Included'},{h:'1 to 2 hours',p:'$75 - $150'},{h:'2 to 3 hours',p:'$150 - $275'},{h:'Over 3 hours or overnight',p:'Custom quote'}], note:'Anything within one hour of Claremont, New Hampshire is included. Beyond that, travel is quoted using the table above.' },
   deposit:{ title:'Reserving Your Date', body:'A 10 percent booking deposit reserves your date. It is non-refundable, but it is applied directly to your balance, so it is not an extra cost on top of the package price. The remainder is due on or before the event date.', note:'The deposit is what takes your date off the calendar for everyone else. We invoice it once you have approved your quote.' },
   packages:[{h:'3 Hours',p:'$750',tag:'Standard event'},{h:'4 Hours',p:'$900',tag:''},{h:'5 Hours',p:'$1,050',tag:''},{h:'6 Hours',p:'$1,200',tag:''},{h:'Additional hour',p:'$150',tag:'Added to any package'},{h:'Full day or multi-day',p:'Custom quote',tag:''}],
   included:['Complete simulator setup','Delivery within the standard service area','Setup and teardown','On-site event attendant','Right handed, left handed, mens and womens clubs','Balls and tees','Casual play and open hitting','Live digital leaderboard','Closest-to-the-pin and long-drive challenges','Other simulator games and formats'],
@@ -477,7 +477,7 @@ var DEFAULTS = {
     { q:'Are clubs provided?', a:'Yes. Right-handed and left-handed club options will be available. Equipment availability should be confirmed before each event.' },
     { q:'How long does setup take?', a:'Setup time varies, but the team typically arrives well before the event begins.' },
     { q:'Do you provide an operator?', a:'Yes. An attendant can manage the simulator, explain the games, track scores, and keep guests moving.' },
-    { q:'How far do you travel?', a:'The primary service area is New Hampshire and Vermont. Additional travel charges may apply outside the included radius.' },
+    { q:'How far do you travel?', a:'We are based in Claremont, New Hampshire and serve New Hampshire and Vermont. Travel within one hour of Claremont is included, and additional travel charges may apply beyond that.' },
     { q:'Can guests pay individually?', a:'Yes. Public events can be structured with individual entry fees for games such as closest-to-the-pin and longest drive.' },
     { q:'How do I reserve my date?', a:'Once you approve your quote, a 10 percent booking deposit holds the date. The deposit is non-refundable, but it is applied to your balance, so it comes off the final amount rather than adding to it. The remainder is due on or before the event day.' },
     { q:'What do you use for prizes?', a:'Prizes can be as simple as a sleeve of golf balls, a new club, or Mobile Bunker merchandise. For public events and fundraisers, sponsors are often happy to provide gift cards or products. The prize structure is agreed with you before the event.' }
@@ -799,7 +799,7 @@ function pageContact(){
   +'<div class="contact-item"><span class="ic">\u2709\uFE0F</span><div><span>Email</span><a href="mailto:'+esc(c.email)+'">'+esc(c.email)+'</a></div></div>'
   +'<div class="contact-item"><span class="ic">\uD83D\uDCCD</span><div><span>Service area</span>'+esc(c.area)+'</div></div>'
   +'<div class="contact-item"><span class="ic">\u23F1\uFE0F</span><div><span>Response time</span>'+esc(c.hours)+'</div></div>'
-  +'<div class="note" style="margin-top:8px">Contact details shown here are placeholders until the real phone number, email, and social links are confirmed.</div>'
+  +'<div class="note" style="margin-top:8px">Social media links are placeholders until the real profiles are added.</div>'
   +'</div></aside>'
   +'</div></div></section>';
   return out;
