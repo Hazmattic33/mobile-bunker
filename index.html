@@ -311,6 +311,8 @@ tr:hover td{background:rgba(255,255,255,.02)}
 .reveal.in{opacity:1;transform:none;transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.3,1)}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.callbar{display:none}
+@media(max-width:760px){.callbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;gap:10px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(11,11,11,.94);border-top:1px solid var(--line);backdrop-filter:blur(8px)}.callbar a{flex:1;min-height:48px;padding:10px 12px}body.has-callbar{padding-bottom:78px}}
 </style>
 </head>
 <body>
@@ -371,7 +373,7 @@ var DEFAULTS = {
     facebook:'https://www.facebook.com/profile.php?id=61591847652638',
     instagram:'https://www.instagram.com/themobilebunker/'
   },
-  flags:{ showInsured:false, showReviews:false },
+  flags:{ showInsured:true, showReviews:false },
   hero:{
     title:'Bring the Golf Experience to You',
     sub:'Premium mobile golf simulator entertainment for weddings, corporate events, breweries, fundraisers, tournaments, and private parties across New Hampshire, Vermont, eastern New York and northern Massachusetts.',
@@ -444,7 +446,7 @@ var DEFAULTS = {
     { k:'staff', i:'\uD83D\uDE42', t:'Friendly event staff' },
     { k:'full',  i:'\uD83D\uDD27', t:'Delivery, setup, operation, and teardown included' },
     { k:'area',  i:'\uD83D\uDCCD', t:'About a 75 mile radius from Claremont, NH' },
-    { k:'insured', i:'\uD83D\uDEE1\uFE0F', t:'Fully insured', flag:'showInsured' }
+    { k:'insured', i:'\uD83D\uDEE1\uFE0F', t:'Fully insured, COI available on request', flag:'showInsured' }
   ],
   pricing:[
     { id:'parties', name:'Private Parties', amount:'$450', custom:false, blurb:'Birthdays, graduations, backyard parties, reunions.',
@@ -460,12 +462,12 @@ var DEFAULTS = {
     { id:'tournaments', name:'Golf Tournaments', amount:'Custom pricing', custom:true, blurb:'Sponsor holes and full day coverage.',
       inc:['Sponsor branded screens','Hole-in-one challenge','Full tournament day coverage'] }
   ],
-  addons:['Additional event hours|$175 / hr','Closest-to-the-pin competition|$100','Long-drive competition|$100','Trophy or prize package|$75 - $200','Second attendant|$100 - $150','Travel to your venue|Included in every quote','Public pay-to-play event management|Custom'],
+  addons:['Additional event hours|$175 / hr','Trophy or prize package|$75 - $200','Second attendant|$100 - $150','Travel to your venue|Built into your quote','Public pay-to-play event management|Custom'],
   prizeNote:'Prizes do not have to be complicated. A sleeve of golf balls, a new club, or Mobile Bunker merchandise all work well, and sponsors are often happy to cover them.',
-  travel:{ title:'Travel', intro:'Travel is measured by drive time one way from our home base in Claremont, New Hampshire. We regularly cover roughly a 75 mile radius, which takes in New Hampshire, Vermont, eastern New York and northern Massachusetts.', rows:[], note:'Travel is never free. Every quote includes a travel figure based on the drive to your venue, so the price we give you is the price you pay.' },
+  travel:{ title:'Travel', intro:'Travel is measured by drive time one way from our home base in Claremont, New Hampshire. We regularly cover roughly a 75 mile radius, which takes in New Hampshire, Vermont, eastern New York and northern Massachusetts.', rows:[], note:'Travel is calculated for your venue and built into your quote. No surprise fees: the price we give you is the price you pay.' },
   deposit:{ title:'Reserving Your Date', body:'A 10 percent booking deposit reserves your date. It is non-refundable, but it is applied directly to your balance, so it is not an extra cost on top of the package price. The remainder is due on or before the event date.', note:'The deposit is what takes your date off the calendar for everyone else. We invoice it once you have approved your quote.' },
   packages:[{h:'2 Hours',p:'$450',tag:'Standard event'},{h:'4 Hours',p:'$800',tag:''},{h:'Additional hour',p:'$175',tag:'Added to any package'},{h:'Full day or multi-day',p:'Custom quote',tag:''}],
-  included:['Complete simulator setup','Delivery within the standard service area','Setup and teardown','On-site event attendant','Right handed, left handed, mens and womens clubs','Balls and tees','Casual play and open hitting','Live digital leaderboard','Closest-to-the-pin and long-drive challenges','Other simulator games and formats'],
+  included:['Complete simulator setup','Delivery and travel, built into your quote','Setup and teardown','On-site event attendant','Right handed, left handed, mens and womens clubs','Balls and tees','Casual play and open hitting','Live digital leaderboard','Closest-to-the-pin and long-drive challenges','Other simulator games and formats'],
   publicPricing:{ title:'Breweries, festivals and public events', body:'Public events are quoted per venue. They can run as a venue-paid appearance where every guest plays free, or as a pay-to-play setup where guests buy challenges directly. Individual challenges typically run between $5 and $20 per player depending on the game and the number of attempts.', note:'Prize structures are agreed with the venue in advance. We use trophies, merchandise and sponsor-provided prizes rather than cash pots.' },
   pricingNote:'Final pricing depends on event duration, location, travel, setup requirements, attendance, and selected activities.',
   faqs:[
@@ -477,7 +479,8 @@ var DEFAULTS = {
     { q:'Are clubs provided?', a:'Yes. Right-handed and left-handed club options will be available. Equipment availability should be confirmed before each event.' },
     { q:'How long does setup take?', a:'Setup time varies, but the team typically arrives well before the event begins.' },
     { q:'Do you provide an operator?', a:'Yes. An attendant can manage the simulator, explain the games, track scores, and keep guests moving.' },
-    { q:'How far do you travel?', a:'We are based in Claremont, New Hampshire and regularly travel about 75 miles, which covers New Hampshire, Vermont, eastern New York and northern Massachusetts. Travel is not free at any distance. It is calculated for your venue and built into the estimate.' },
+    { q:'How far do you travel?', a:'We are based in Claremont, New Hampshire and regularly travel about 75 miles, which covers New Hampshire, Vermont, eastern New York and northern Massachusetts. Travel is calculated for your venue and built into your quote, so there are no surprise fees.' },
+    { q:'Are you insured?', a:'Yes. The Mobile Bunker is fully insured, and we can provide a certificate of insurance (COI) to your venue on request.' },
     { q:'Can guests pay individually?', a:'Yes. Public events can be structured with individual entry fees for games such as closest-to-the-pin and longest drive.' },
     { q:'How do I reserve my date?', a:'Once you approve your quote, a 10 percent booking deposit holds the date. The deposit is non-refundable, but it is applied to your balance, so it comes off the final amount rather than adding to it. The remainder is due on or before the event day.' },
     { q:'What do you use for prizes?', a:'Prizes can be as simple as a sleeve of golf balls, a new club, or Mobile Bunker merchandise. For public events and fundraisers, sponsors are often happy to provide gift cards or products. The prize structure is agreed with you before the event.' }
@@ -518,7 +521,7 @@ function el(id){ return document.getElementById(id); }
 function money(v){ return v; }
 function btn(label,href,cls){ return '<a class="btn '+(cls||'btn-primary')+'" href="'+href+'">'+esc(label)+'</a>'; }
 
-var NAV=[['Home','#/'],['Events','#/events'],['How It Works','#/how-it-works'],['Pricing','#/pricing'],['Gallery','#/gallery'],['FAQ','#/faq'],['Contact','#/contact']];
+var NAV=[['Home','#/'],['Events','#/events'],['How It Works','#/how-it-works'],['Pricing','#/pricing'],['FAQ','#/faq'],['Contact','#/contact']];
 
 function renderNav(route){
   el('navlinks').innerHTML = NAV.map(function(n){
@@ -593,16 +596,17 @@ function pageHome(){
   + whyList().map(function(w){ return '<div class="why reveal"><span class="ic">'+w.i+'</span><strong>'+esc(w.t)+'</strong></div>'; }).join('')
   +'</div></div></section>';
 
-  out+='<section class="sec"><div class="wrap"><div class="center reveal"><p class="eyebrow">Reviews</p><h2>What Guests Are Saying</h2></div>'
+  out+='<section class="sec"><div class="wrap"><div class="center reveal">'+(S.reviews.length && S.flags.showReviews ? '<p class="eyebrow">Reviews</p><h2>What Guests Are Saying</h2>' : '<p class="eyebrow">Now Booking</p><h2>Be One of Our First Events</h2>')+'</div>'
   + (S.reviews.length && S.flags.showReviews
       ? '<div class="grid g3" style="margin-top:40px">'+S.reviews.map(function(r){
           return '<div class="card reveal"><div class="card-body"><div class="stars">'+'\u2605'.repeat(r.stars||5)+'</div>'
           +'<p style="margin-top:12px">'+esc(r.text)+'</p><strong>'+esc(r.name)+'</strong>'
           +'<span style="color:var(--muted);font-size:.85rem">'+esc(r.event||'')+'</span></div></div>'; }).join('')+'</div>'
-      : '<div class="empty-reviews reveal" style="margin-top:36px"><div class="stars">\u2605\u2605\u2605\u2605\u2605</div>'
-        +'<h3 style="margin-top:14px">Be among the first to experience The Mobile Bunker.</h3>'
-        +'<p class="lead" style="margin:0 auto 22px">We are booking our opening season now. Early bookings get first pick of prime weekend dates.</p>'
-        +btn('Ask About Early Booking Availability','#/contact')+'</div>')
+      : '<div class="empty-reviews reveal" style="margin-top:36px">'
+        +'<p class="eyebrow" style="margin-top:14px">Founding Season Offer</p>'
+        +'<h3 style="margin-top:6px">$50 off for our first 10 bookings.</h3>'
+        +'<p class="lead" style="margin:0 auto 22px">We are booking our opening season now. The first 10 confirmed events get $50 off their package, plus first pick of prime weekend dates.</p>'
+        +btn('Claim Founding Season Pricing','#/contact')+'</div>')
   +'</div></section>';
 
   out+='<section class="sec cta"><div class="wrap reveal"><p class="eyebrow">Let us talk</p>'
@@ -766,26 +770,27 @@ function pageContact(){
   +'<form id="quote" novalidate>'
   +'<div class="fgrid">'
   + fld('name','Full name','text',true,'Jamie Sullivan')
-  + fld('email','Email','email',true,'you@email.com')
-  + fld('phone','Phone number','tel',true,'(603) 555-0134')
+  + fld('phone','Phone number','tel',false,'(603) 555-0134')
+  + fld('email','Email','email',false,'you@email.com')
+  + '<p class="mini full" style="grid-column:1/-1;margin:-6px 0 4px">Phone or email, whichever you prefer. We just need one way to reach you.</p>'
   + '<div class="field"><label for="etype">Event type <span class="req">*</span></label><select id="etype" name="etype" required>'
   + '<option value="">Select an event type</option>'
   + EVENT_TYPES.map(function(t){return '<option value="'+t[0]+'">'+t[1]+'</option>';}).join('')
   + '</select><div class="err" id="e_etype"></div></div>'
   + fld('date','Event date','date',true)
-  + fld('start','Start time','time',true)
+  + fld('start','Start time','time',false)
   + '<div class="field full"><label for="loc">Event location <span class="req">*</span></label>'
   + '<input id="loc" name="loc" type="text" placeholder="Venue name, town, and state" required><div class="err" id="e_loc"></div></div>'
-  + '<div class="field"><label for="setting">Indoor or outdoor <span class="req">*</span></label><select id="setting" name="setting" required>'
+  + '<div class="field"><label for="setting">Indoor or outdoor</label><select id="setting" name="setting">'
   + '<option value="">Select</option><option>Indoor</option><option>Outdoor</option><option>Both / not sure yet</option></select><div class="err" id="e_setting"></div></div>'
-  + fld('guests','Estimated guest count','number',true,'75','min="1"')
-  + fld('hours','Desired number of hours','number',true,'4','min="1" max="12"')
-  + '<div class="field full"><label>Interested games or competitions <span class="req">*</span></label>'
+  + fld('guests','Estimated guest count','number',false,'75','min="1"')
+  + fld('hours','Desired number of hours','number',false,'4','min="1" max="12"')
+  + '<div class="field full"><label>Interested games or competitions</label>'
   + '<div class="checks" id="games">'+GAME_OPTS.map(function(g,i){
       return '<label class="chk"><input type="checkbox" value="'+esc(g)+'"> '+esc(g)+'</label>'; }).join('')+'</div>'
   + '<div class="err" id="e_games"></div></div>'
-  + '<div class="field full"><label for="notes">Additional details <span class="req">*</span></label>'
-  + '<textarea id="notes" name="notes" placeholder="Ceiling height, power access, parking, timeline, anything else we should know." required></textarea><div class="err" id="e_notes"></div></div>'
+  + '<div class="field full"><label for="notes">Additional details</label>'
+  + '<textarea id="notes" name="notes" placeholder="Ceiling height, power access, parking, timeline, anything else we should know."></textarea><div class="err" id="e_notes"></div></div>'
   + '</div>'
   + '<input class="hp" type="text" id="website" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">'
   + '<input type="hidden" id="ts" value="'+Date.now()+'">'
@@ -1028,15 +1033,16 @@ function wireForm(){
     ev.preventDefault();
     var ok=true;
     function bad(id,msg){ var e=el('e_'+id); if(e){ e.textContent=msg||''; } if(msg) ok=false; }
-    ['name','email','phone','etype','date','start','loc','setting','guests','hours','notes'].forEach(function(id){
+    ['name','etype','date','loc'].forEach(function(id){
       var v=el(id).value.trim(); bad(id, v? '' : 'Required');
     });
     var em=el('email').value.trim();
     if(em && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)) bad('email','Enter a valid email address');
     var ph=el('phone').value.replace(/[^0-9]/g,'');
     if(ph && ph.length<10) bad('phone','Enter a valid phone number');
+    if(!em && !ph) bad('phone','Enter a phone number or email so we can reach you');
     var picked=[].slice.call(document.querySelectorAll('#games input:checked')).map(function(c){return c.value;});
-    bad('games', picked.length? '' : 'Choose at least one');
+    
     /* spam protection: honeypot + minimum time on form */
     if(el('website').value!==''){ return; }
     if(Date.now()-Number(el('ts').value) < 3000){ bad('notes','Please take a moment to review your details, then submit again.'); }
@@ -1059,7 +1065,7 @@ function wireForm(){
     el('formhost').innerHTML='<div class="thanks"><div class="tick">&#10003;</div>'
       +'<h2>Request Received</h2>'
       +'<p class="lead" style="margin:0 auto 20px">Thank you for contacting '+esc(S.brand.name)+'. We&rsquo;ll review your event details and follow up with availability and pricing.</p>'
-      +'<a class="btn btn-ghost" href="#/gallery">Browse the gallery</a></div>';
+      +'<a class="btn btn-ghost" href="#/">Back to home</a></div>';
     window.scrollTo({top:el('formhost').offsetTop-120,behavior:'smooth'});
   });
 }
@@ -1164,24 +1170,34 @@ function wireAdmin(){
 
 /* ---------------- router ---------------- */
 var ROUTES={ '#/':pageHome, '#/events':pageEvents, '#/how-it-works':pageHow, '#/pricing':pagePricing,
-  '#/gallery':pageGallery, '#/faq':pageFaq, '#/contact':pageContact, '#/admin':pageAdmin,
+  /* '#/gallery':pageGallery,  hidden until real event photos are added */ '#/faq':pageFaq, '#/contact':pageContact, '#/admin':pageAdmin,
   '#/privacy':function(){return pageLegal('privacy');}, '#/terms':function(){return pageLegal('terms');} };
 var TITLES={ '#/':'The Mobile Bunker | Mobile Golf Simulator Rentals in NH & VT',
   '#/events':'Event Types | The Mobile Bunker', '#/how-it-works':'How It Works | The Mobile Bunker',
   '#/pricing':'Pricing | The Mobile Bunker', '#/gallery':'Gallery | The Mobile Bunker',
   '#/faq':'FAQ | The Mobile Bunker', '#/contact':'Request a Quote | The Mobile Bunker',
   '#/admin':'Admin | The Mobile Bunker', '#/privacy':'Privacy Policy | The Mobile Bunker', '#/terms':'Terms | The Mobile Bunker' };
+function renderCallbar(show){
+  var b=el('callbar');
+  if(!b){ b=document.createElement('div'); b.id='callbar'; b.className='callbar'; document.body.appendChild(b); }
+  var n=S.contact.phone.replace(/[^0-9+]/g,'');
+  b.innerHTML='<a class="btn btn-primary" href="tel:'+esc(n)+'" aria-label="Call '+esc(S.contact.phone)+'">Call</a>'
+    +'<a class="btn btn-ghost" href="sms:'+esc(n)+'" aria-label="Text '+esc(S.contact.phone)+'">Text</a>';
+  b.style.visibility = show ? '' : 'hidden';
+  document.body.classList.toggle('has-callbar', !!show);
+}
 function router(){
   var raw=location.hash||'#/';
   var route=raw.split('?')[0].split('#').slice(0,2).join('#') || '#/';
   if(raw.indexOf('#/events#')===0) route='#/events';
-  if(!ROUTES[route]) route='#/';
+  if(!ROUTES[route]){ route='#/'; if(raw!=='#/' && raw!=='' && raw.indexOf('#/events#')!==0){ history.replaceState(null,'','#/'); } }
   document.title=TITLES[route]||TITLES['#/'];
   renderNav(route);
   el('main').innerHTML=ROUTES[route]();
   var admin = route==='#/admin';
   el('hdr').style.display = admin ? 'none' : '';
   el('ftr').style.display = admin ? 'none' : '';
+  renderCallbar(!admin);
   if(admin){ wireAdmin(); }
   if(route==='#/gallery'){
     paintGallery();
